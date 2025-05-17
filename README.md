@@ -12,7 +12,7 @@ downloading to HF Hub. Xet storage provides chunk-based deduplication,
 efficient storage/retrieval with local disk caching, and backwards
 ompatibility with Git LFS. This library is not meant to be used directly,
 and is instead intended to be used from huggingface_hub.
-
+<br/>
 hf_xet: Python integration with Rust code, uses maturin to build hfxet
 Python package. Main integration with HF Hub Python package.
 
