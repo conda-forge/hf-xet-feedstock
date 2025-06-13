@@ -17,7 +17,7 @@ source:
     # for the details.
     # This patch can be removed once hf-xet requires pyo3>=0.24 at
     # https://github.com/huggingface/xet-core/blob/5d94e17813b286c65bf91051e8c80ffa36587fe0/hf_xet/Cargo.toml#L32
-    - bump-pyo3.patch
+    - disable-auto-initialize.patch
 
 build:
   number: 3
@@ -31,9 +31,9 @@ build:
         - export CARGO_PROFILE_RELEASE_LTO=fat
         # Deal with OpenSSL vendoring
         - export OPENSSL_DIR="$PREFIX"
-        - export OPENSSL_NO_VENDOR=1
-        - mkdir python # https://github.com/PyO3/maturin/issues/2489#issuecomment-2812021105
+        # Install the Python package using maturin
         - python -m pip install . -vv --no-deps --no-build-isolation
+        # Generate the THIRDPARTY.yml file
         - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
 
     - if: win
@@ -45,13 +45,10 @@ build:
         - set CARGO_PROFILE_RELEASE_LTO=fat
         # Deal with OpenSSL vendoring
         - set OPENSSL_DIR=%LIBRARY_PREFIX%
-        - set OPENSSL_NO_VENDOR=1
-        - pushd hf_xet
-        - cargo-bundle-licenses --format yaml --output %SRC_DIR%\THIRDPARTY.yml || goto :error
-        - popd
-        # https://github.com/PyO3/maturin/issues/2489#issuecomment-2812021105
-        - mkdir python
+        # Install the Python package using maturin
         - python -m pip install . -vv --no-deps --no-build-isolation
+        # Generate the THIRDPARTY.yml file
+        - cargo-bundle-licenses --format yaml --output %SRC_DIR%\THIRDPARTY.yml || goto :error
 
   skip: not (match(python, python_min ~ ".*") and is_abi3)
   python:
