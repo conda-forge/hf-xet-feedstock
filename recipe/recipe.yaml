@@ -32,11 +32,6 @@ build:
         # Deal with OpenSSL vendoring
         - export OPENSSL_DIR="$PREFIX"
         - export OPENSSL_NO_VENDOR=1
-        - if: build_platform != target_platform and osx
-          then:
-            - export PYO3_CROSS_INCLUDE_DIR=$PREFIX/include
-            - export PYO3_CROSS_LIB_DIR=$SP_DIR/../
-            - export PYO3_CROSS_PYTHON_VERSION=$PY_VER
         - mkdir python # https://github.com/PyO3/maturin/issues/2489#issuecomment-2812021105
         - python -m pip install . -vv --no-deps --no-build-isolation
         - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
