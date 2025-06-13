@@ -14,54 +14,41 @@ build:
   number: 3
   script:
     - if: unix
-      then: |
+      then:
         # https://github.com/rust-lang/cargo/issues/10583#issuecomment-1129997984
-        export CARGO_NET_GIT_FETCH_WITH_CLI=true
-
+        - export CARGO_NET_GIT_FETCH_WITH_CLI=true
         # Optimize the Cargo build
-        export CARGO_PROFILE_RELEASE_STRIP=symbols
-        export CARGO_PROFILE_RELEASE_LTO=fat
-
+        - export CARGO_PROFILE_RELEASE_STRIP=symbols
+        - export CARGO_PROFILE_RELEASE_LTO=fat
         # Deal with OpenSSL vendoring
-        export OPENSSL_DIR="$PREFIX"
-        export OPENSSL_NO_VENDOR=1
-
-        export PYO3_CROSS_LIB_DIR=${{ PREFIX }}/lib
-
-        pushd hf_xet
-        cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
+        - export OPENSSL_DIR="$PREFIX"
+        - export OPENSSL_NO_VENDOR=1
+        - if: arm64
+          then: export PYO3_CROSS_LIB_DIR=${{ PREFIX }}/lib
+        - pushd hf_xet
+        - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
         # maturin build --release --features openssl_vendored
-        popd
-
+        - popd
         # https://github.com/PyO3/maturin/issues/2489#issuecomment-2812021105
-        mkdir python
-        $PYTHON -m pip install . -vv --no-deps --no-build-isolation
+        - mkdir python
+        - python -m pip install . -vv --no-deps --no-build-isolation
 
     - if: win
-      then: |
-        REM https://github.com/rust-lang/cargo/issues/10583#issuecomment-1129997984
-        set CARGO_NET_GIT_FETCH_WITH_CLI=true
-
-        REM Optimize the Cargo build
-        set CARGO_PROFILE_RELEASE_STRIP=symbols
-        set CARGO_PROFILE_RELEASE_LTO=fat
-
-        REM Deal with OpenSSL vendoring
-        set OPENSSL_DIR=%LIBRARY_PREFIX%
-        set OPENSSL_NO_VENDOR=1
-
-        set PYO3_CROSS_LIB_DIR=%LIBRARY_PREFIX%\lib
-
-        pushd hf_xet
-        cargo-bundle-licenses ^
-            --format yaml ^
-            --output %SRC_DIR%\THIRDPARTY.yml ^
-            || goto :error
-        popd
-
-        REM https://github.com/PyO3/maturin/issues/2489#issuecomment-2812021105
-        mkdir python
-        %PYTHON% -m pip install . -vv --no-deps --no-build-isolation
+      then:
+        # https://github.com/rust-lang/cargo/issues/10583#issuecomment-1129997984
+        - set CARGO_NET_GIT_FETCH_WITH_CLI=true
+        # Optimize the Cargo build
+        - set CARGO_PROFILE_RELEASE_STRIP=symbols
+        - set CARGO_PROFILE_RELEASE_LTO=fat
+        # Deal with OpenSSL vendoring
+        - set OPENSSL_DIR=%LIBRARY_PREFIX%
+        - set OPENSSL_NO_VENDOR=1
+        - pushd hf_xet
+        - cargo-bundle-licenses --format yaml --output %SRC_DIR%\THIRDPARTY.yml || goto :error
+        - popd
+        # https://github.com/PyO3/maturin/issues/2489#issuecomment-2812021105
+        - mkdir python
+        - python -m pip install . -vv --no-deps --no-build-isolation
 
   skip: not (match(python, python_min ~ ".*") and is_abi3)
   python:
