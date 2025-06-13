@@ -23,7 +23,7 @@ build:
         # Deal with OpenSSL vendoring
         - export OPENSSL_DIR="$PREFIX"
         - export OPENSSL_NO_VENDOR=1
-        - if: target_platform == "osx-arm64"
+        - if: build_platform != target_platform and osx
           then:
             - export PYO3_CROSS_LIB_DIR=$PREFIX/lib
             - find $PREFIX/lib/python3.* -name "_sysconfigdata_*.py" -type f -not -name "_sysconfigdata_arm64_*.py" -delete
