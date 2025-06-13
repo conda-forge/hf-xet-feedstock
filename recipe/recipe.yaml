@@ -26,6 +26,8 @@ build:
         export OPENSSL_DIR="$PREFIX"
         export OPENSSL_NO_VENDOR=1
 
+        export PYO3_CROSS_LIB_DIR=${{ PREFIX }}/lib
+
         pushd hf_xet
         cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
         # maturin build --release --features openssl_vendored
@@ -47,6 +49,8 @@ build:
         REM Deal with OpenSSL vendoring
         set OPENSSL_DIR=%LIBRARY_PREFIX%
         set OPENSSL_NO_VENDOR=1
+
+        set PYO3_CROSS_LIB_DIR=%LIBRARY_PREFIX%\lib
 
         pushd hf_xet
         cargo-bundle-licenses ^
