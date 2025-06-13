@@ -9,6 +9,8 @@ package:
 source:
   url: https://pypi.org/packages/source/h/hf-xet/hf_xet-${{ version }}.tar.gz
   sha256: a5f09b1dd24e6ff6bcedb4b0ddab2d81824098bb002cf8b4ffa780545fa348c3
+  patches:
+    - bump-pyo3.patch
 
 build:
   number: 3

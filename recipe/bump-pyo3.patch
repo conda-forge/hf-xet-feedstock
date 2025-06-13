@@ -1,0 +1,13 @@
+diff --git a/hf_xet/Cargo.toml b/hf_xet/Cargo.toml
+index 075228e..f39e2c2 100644
+--- a/hf_xet/Cargo.toml
++++ b/hf_xet/Cargo.toml
+@@ -28,7 +28,7 @@ pprof = { version = "0.14", features = [
+     "protobuf-codec",
+ ], optional = true }
+ 
+-pyo3 = { version = "0.23", features = [
++pyo3 = { version = "0.24", features = [
+     "extension-module",
+     "abi3-py37",
+     "auto-initialize",
