@@ -10,13 +10,10 @@ source:
   url: https://pypi.org/packages/source/h/hf-xet/hf_xet-${{ version }}.tar.gz
   sha256: a5f09b1dd24e6ff6bcedb4b0ddab2d81824098bb002cf8b4ffa780545fa348c3
   patches:
-    # NOTE: Cross-compilation with pyo3 requires a pyo3 upstream PR
-    # (https://github.com/conda-forge/sqlglotrs-feedstock/pull/27#issuecomment-2777897582)
-    # that is only available in pyo3>=0.24.
-    # See https://github.com/conda-forge/sqlglotrs-feedstock/pull/27#issuecomment-2777897582
-    # for the details.
-    # This patch can be removed once hf-xet requires pyo3>=0.24 at
-    # https://github.com/huggingface/xet-core/blob/5d94e17813b286c65bf91051e8c80ffa36587fe0/hf_xet/Cargo.toml#L32
+    # NOTE: Cross-compilation with pyo3 is failing on osx-arm64 so we disable
+    # the auto-initialize feature of pyo3 for all the builds. It has no consequence
+    # on the final package except when embedding Python in a Rust application where the
+    # Python interpreter must be manually initialized.
     - disable-auto-initialize.patch
 
 build:
