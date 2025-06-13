@@ -26,7 +26,7 @@ build:
         - if: arm64
           then:
             - export PYO3_CROSS_LIB_DIR=${{ PREFIX }}/lib
-            - find {{ PREFIX }}/lib/python3.* -name "_sysconfigdata_*.py" -type f -not -name "_sysconfigdata_arm64_*.py" -delete
+            - find ${{ PREFIX }}/lib/python3.* -name "_sysconfigdata_*.py" -type f -not -name "_sysconfigdata_arm64_*.py" -delete
         - pushd hf_xet
         - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
         # maturin build --release --features openssl_vendored
