@@ -1,5 +1,5 @@
 {% set name = "hf-xet" %}
-{% set version = "1.1.3" %}
+{% set version = "1.1.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: a5f09b1dd24e6ff6bcedb4b0ddab2d81824098bb002cf8b4ffa780545fa348c3
+  sha256: 875158df90cb13547752532ed73cad9dfaad3b29e203143838f67178418d08a4
 
 build:
   number: 0
