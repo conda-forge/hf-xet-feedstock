@@ -16,12 +16,8 @@ docker_image:
 - quay.io/condaforge/linux-anvil-ppc64le:alma9
 is_abi3:
 - true
-is_python_min:
-- true
 openssl:
 - '3'
-perl:
-- 5.32.1
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -34,6 +30,3 @@ rust_compiler:
 - rust
 target_platform:
 - linux-ppc64le
-zip_keys:
-- - python
-  - is_python_min
