@@ -85,15 +85,12 @@ tests:
       # Can be removed once https://github.com/prefix-dev/rattler-build/issues/1733 is fixed.
       - if: unix
         then:
-          # - export SP_DIR=$(python -c "import site; print(site.getsitepackages()[0])")
-          # - abi3audit $SP_DIR/hf_xet/hf_xet.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
-          - abi3audit --summary --verbose --assume-minimum-abi3 ${{ python_min }} hf_xet
-      # NOTE: it's failing
+          - export SP_DIR=$(python -m site --user-site 2>/dev/null)
+          - abi3audit $SP_DIR/hf_xet/hf_xet.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
       - if: win
         then:
-          #     - for /f "usebackq tokens=*" %%i in (`python -c "import site; print(site.getsitepackages()[0])"`) do set SP_DIR=%%i
-          #     - abi3audit %SP_DIR%\hf_xet\hf_xet.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
-          - abi3audit --summary --verbose --assume-minimum-abi3 ${{ python_min }} hf_xet
+          - for /f "delims=" %%i in ('python -m site --user-site 2^>nul') do set "sp_dir=%%i"
+          - abi3audit %SP_DIR%\hf_xet\hf_xet.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
     requirements:
       run:
         - abi3audit
