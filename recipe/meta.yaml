@@ -8,6 +8,9 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
   sha256: 69ebbcfd9ec44fdc2af73441619eeb06b94ee34511bbcf57cd423820090f5694
+  patches:
+    - patches/patch_setup_cfg.diff
+    - patches/patch_no_auto_initialize.diff
 
 build:
   number: 0

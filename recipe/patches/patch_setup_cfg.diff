@@ -1,0 +1,8 @@
+diff -git a/hf_xet/setup.cfg b/hf_xet/setup.cfg
+new file mode 100644
+index 0000000..3f6f2fb
+--- /dev/null
++++ b/hf_xet/setup.cfg
+@@ -0,0 +1,2 @@
++[bdist_wheel]
++py-limited-api = cp37
