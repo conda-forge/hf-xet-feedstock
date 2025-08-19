@@ -1,6 +1,6 @@
 context:
   name: hf-xet
-  version: "1.1.7"
+  version: "1.1.8"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/h/hf-xet/hf_xet-${{ version }}.tar.gz
-  sha256: 20cec8db4561338824a3b5f8c19774055b04a8df7fff0cb1ff2cb1a0c1607b80
+  sha256: 62a0043e441753bbc446dcb5a3fe40a4d03f5fb9f13589ef1df9ab19252beb53
   patches:
     # NOTE: Cross-compilation with pyo3 is failing on osx-arm64 so we disable
     # the auto-initialize feature of pyo3 for all the builds. It has no consequence
