@@ -1,6 +1,6 @@
 context:
   name: hf-xet
-  version: "1.1.8"
+  version: "1.1.9"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/h/hf-xet/hf_xet-${{ version }}.tar.gz
-  sha256: 62a0043e441753bbc446dcb5a3fe40a4d03f5fb9f13589ef1df9ab19252beb53
+  sha256: c99073ce404462e909f1d5839b2d14a3827b8fe75ed8aed551ba6609c026c803
   patches:
     # NOTE: Cross-compilation with pyo3 is failing on osx-arm64 so we disable
     # the auto-initialize feature of pyo3 for all the builds. It has no consequence
@@ -109,7 +109,7 @@ about:
     Python package. Main integration with HF Hub Python package.
   license: Apache-2.0
   license_file:
-    - LICENSE
+    - hf_xet/LICENSE
     - THIRDPARTY.yml
 
 extra:
