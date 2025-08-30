@@ -109,7 +109,7 @@ about:
     Python package. Main integration with HF Hub Python package.
   license: Apache-2.0
   license_file:
-    - LICENSE
+    - hf_xet/LICENSE
     - THIRDPARTY.yml
 
 extra:
