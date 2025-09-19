@@ -17,7 +17,7 @@ source:
     - disable-auto-initialize.patch
 
 build:
-  number: 1
+  number: 2
   script:
     - if: unix
       then:
@@ -46,6 +46,9 @@ build:
         - python -m pip install . -vv --no-deps --no-build-isolation
         # Generate the THIRDPARTY.yml file
         - cargo-bundle-licenses --format yaml --output %SRC_DIR%\THIRDPARTY.yml || goto :error
+        # Windows archives cannot contain symlinks, so we need to convert them to copies
+        - del %SRC_DIR%\hf_xet\LICENSE
+        - copy %SRC_DIR%\LICENSE %SRC_DIR%\hf_xet\LICENSE
 
   skip: not (match(python, python_min ~ ".*") and is_abi3)
   python:
