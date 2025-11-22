@@ -1,6 +1,6 @@
 context:
   name: hf-xet
-  version: "1.2.0"
+  version: "1.2.1"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/huggingface/xet-core/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 645ab395cee90606380382a8a985a93ccf55fab6619a192c40dd01968ebf0b74
+  sha256: 2b4c5c8c4cf939ee34657592c5174ac16c750f29b7c20310328b79971de46f9f
   patches:
     # NOTE: Cross-compilation with pyo3 is failing on osx-arm64 so we disable
     # the auto-initialize feature of pyo3 for all the builds. It has no consequence
