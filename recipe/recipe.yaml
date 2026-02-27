@@ -29,7 +29,7 @@ build:
         # Deal with OpenSSL vendoring
         - export OPENSSL_DIR="$PREFIX"
         # Install the Python package using maturin
-        - python -m pip install . -vv --no-deps --no-build-isolation
+        - python -m pip install ${SRC_DIR}/hf_xet -vv --no-deps --no-build-isolation
         # Generate the THIRDPARTY.yml file
         - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml
 
@@ -43,7 +43,7 @@ build:
         # Deal with OpenSSL vendoring
         - set OPENSSL_DIR=%LIBRARY_PREFIX%
         # Install the Python package using maturin
-        - python -m pip install . -vv --no-deps --no-build-isolation
+        - python -m pip install %SRC_DIR%\hf_xet -vv --no-deps --no-build-isolation
         # Generate the THIRDPARTY.yml file
         - cargo-bundle-licenses --format yaml --output %SRC_DIR%\THIRDPARTY.yml || goto :error
         # Windows archives cannot contain symlinks, so we need to convert them to copies
