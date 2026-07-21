@@ -17,7 +17,7 @@ source:
     - disable-auto-initialize.patch
 
 build:
-  number: 0
+  number: 1
   script:
     - if: unix
       then:
