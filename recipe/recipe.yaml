@@ -75,7 +75,9 @@ tests:
   - python:
       imports:
         - hf_xet
-      python_version: ["${{ python_min ~ '.*' }}"]
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
       pip_check: true
   - script:
       # NOTE: we must manually set SP_DIR since it is not set.
