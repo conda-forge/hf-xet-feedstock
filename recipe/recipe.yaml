@@ -1,6 +1,6 @@
 context:
   name: hf-xet
-  version: "1.7.0"
+  version: "1.7.1"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/huggingface/xet-core/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 07c40917602ab2cb809e350abd2852be8663ff968489a234ec384b373408a7f5
+  sha256: 83ede13365b7b6f77a8e454517a2442b3950efe9c88de340f3dd2619026b26c5
 
 build:
   number: 0
