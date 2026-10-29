@@ -88,8 +88,8 @@ tests:
           - abi3audit $SP_DIR/hf_xet/hf_xet.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
       - if: win
         then:
-          - set "SP_DIR=%PREFIX%\\Lib\\site-packages"
-          - abi3audit %SP_DIR%\\hf_xet\\hf_xet.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+          - for /f "delims=" %%i in ('python -c "import sysconfig; print(sysconfig.get_path('platlib'))"') do set "SP_DIR=%%i"
+          - abi3audit "%SP_DIR%\hf_xet\hf_xet.pyd" -s -v --assume-minimum-abi3 ${{ python_min }}
     requirements:
       run:
         - abi3audit
