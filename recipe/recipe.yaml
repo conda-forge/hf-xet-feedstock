@@ -1,6 +1,6 @@
 context:
   name: hf-xet
-  version: "1.7.0"
+  version: "1.7.1"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/huggingface/xet-core/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 07c40917602ab2cb809e350abd2852be8663ff968489a234ec384b373408a7f5
+  sha256: 83ede13365b7b6f77a8e454517a2442b3950efe9c88de340f3dd2619026b26c5
 
 build:
   number: 0
@@ -75,7 +75,9 @@ tests:
   - python:
       imports:
         - hf_xet
-      python_version: ["${{ python_min ~ '.*' }}"]
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
       pip_check: true
   - script:
       # NOTE: we must manually set SP_DIR since it is not set.
@@ -86,8 +88,8 @@ tests:
           - abi3audit $SP_DIR/hf_xet/hf_xet.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
       - if: win
         then:
-          - set "SP_DIR=%PREFIX%\\Lib\\site-packages"
-          - abi3audit %SP_DIR%\\hf_xet\\hf_xet.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+          - for /f "delims=" %%i in ('python -c "import sysconfig; print(sysconfig.get_path('platlib'))"') do set "SP_DIR=%%i"
+          - abi3audit "%SP_DIR%\hf_xet\hf_xet.pyd" -s -v --assume-minimum-abi3 ${{ python_min }}
     requirements:
       run:
         - abi3audit
@@ -99,7 +101,7 @@ about:
     xet-core enables huggingface_hub to utilize xet storage for uploading and
     downloading to HF Hub. Xet storage provides chunk-based deduplication,
     efficient storage/retrieval with local disk caching, and backwards
-    ompatibility with Git LFS. This library is not meant to be used directly,
+    compatibility with Git LFS. This library is not meant to be used directly,
     and is instead intended to be used from huggingface_hub.
     <br/>
     hf_xet: Python integration with Rust code, uses maturin to build hfxet
