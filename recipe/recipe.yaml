@@ -61,7 +61,7 @@ requirements:
     - ${{ stdlib('c') }}
     - ${{ compiler('rust') }}
     - cargo-bundle-licenses
-    - pkg-config
+    - pkgconf
   host:
     - python
     - python-abi3
