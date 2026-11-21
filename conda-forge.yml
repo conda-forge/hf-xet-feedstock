@@ -1,5 +1,6 @@
 bot:
   automerge: true
+  inspection: update-all
 conda_build:
   error_overlinking: true
 conda_build_tool: rattler-build
